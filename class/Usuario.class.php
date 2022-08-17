@@ -1,7 +1,5 @@
 <?php
-    require_once("Endereco.class.php");
-
-    require_once("Contato.class.php");
+    require_once("../autoload.php");
 
     /* abstract */ class Usuario{
         private $id;
@@ -9,19 +7,20 @@
         private $sobrenome;
         private $email;
         private $senha;
-        private $endereco; //No caso de agregação, seria $endereco"s" = array() e, ao invés de setEndereco($endereco), addEndereco(Endereco $end)
+        private $endereco; //Associação (?)
+        // Agregação ou Composição? = private $enderecos = array();
         private $contatos;
-        public function __construct($id, $nome, $sobrenome, $email, $senha, Endereco $endereco,
-                                    $idcontato, $tipocontato, $descricaocontato){
-                                        $this->setId($id);
-                                        $this->setNome($nome);
-                                        $this->setSobrenome($sobrenome);
-                                        $this->setEmail($email);
-                                        $this->setSenha($senha);
-                                        $this->setEndereco($endereco);
-                                        $this->contatos = array();
-                                        $this->criarContato($idcontato, $tipocontato, $descricaocontato);
-                                    }
+        public function __construct($id, $nome, $sobrenome, $email, $senha, Endereco $endereco, $idcontato, $tipocontato, $descricaocontato){
+            $this->setId($id);
+            $this->setNome($nome);
+            $this->setSobrenome($sobrenome);
+            $this->setEmail($email);
+            $this->setSenha($senha);
+            $this->setEndereco($endereco); //Associação (?)
+            // Agregação ou Composição? = $this->addEndereco(Endereco $endereco);
+            $this->contatos = array();
+            $this->criarContato($idcontato, $tipocontato, $descricaocontato);
+        }
 
         public function setId($id){ $this->id = $id; }
         public function setNome($nome){ $this->nome = $nome; }
@@ -30,13 +29,12 @@
         public function setSenha($senha){ $this->senha = $senha; }
         public function setEndereco($endereco){ $this->endereco = $endereco; }
 
-        private function addContato(Contato $contato){
-            array_push($this->contatos, $contato);
-        }
-
         public function criarContato($id, $tipo, $descricao){
             $contato = new Contato($id, $tipo, $descricao);
             $this->addContato($contato);
+        }
+        private function addContato(Contato $contato){
+            array_push($this->contatos, $contato);
         }
 
         public function listaContatos(){
@@ -52,12 +50,14 @@
         public function getSenha(){ return $this->senha; }
         public function getEndereco(){ return $this->endereco; }
 
-        /*
-        public abstract function login($email, $senha);
-        */
+        /**
+         * public abstract function login($email, $senha);
+         */
     }
 
-    //Instância de objetos e teste de classes
+    /**
+     * Instância de objetos e teste de classes
+     */
 
     $end = new Endereco(1, "São João", 123, 456, 789, 101);
     $usuario = new Usuario(1, "Marcela", "Leite", "marcela.leite@ifc.edu.br", 123, $end, 1, "WhatsApp", "4002-8922");
