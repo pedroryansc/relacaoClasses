@@ -7,8 +7,8 @@
         private $sobrenome;
         private $email;
         private $senha;
-        private $endereco; //Associação (?)
-        // Agregação ou Composição? = private $enderecos = array();
+        private $endereco; // Associação/Agregação (?)
+        // Composição (?) = private $enderecos = array();
         private $contatos;
         public function __construct($id, $nome, $sobrenome, $email, $senha, Endereco $endereco, $idcontato, $tipocontato, $descricaocontato){
             $this->setId($id);
@@ -16,8 +16,8 @@
             $this->setSobrenome($sobrenome);
             $this->setEmail($email);
             $this->setSenha($senha);
-            $this->setEndereco($endereco); //Associação (?)
-            // Agregação ou Composição? = $this->addEndereco(Endereco $endereco);
+            $this->setEndereco($endereco); // Associação/Agregação (?)
+            // Composição (?) = $this->addEndereco($endereco);
             $this->contatos = array();
             $this->criarContato($idcontato, $tipocontato, $descricaocontato);
         }
