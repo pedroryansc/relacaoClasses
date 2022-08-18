@@ -1,7 +1,7 @@
 <?php
     // Banco de Dados
     define('HOST', 'localhost');  
-    define('DBNAME', 'relacaoClasses');    
+    define('DBNAME', 'quadradoRecuperacao');    
     define('USER', 'root');
     define('PASSWORD', '');
 
